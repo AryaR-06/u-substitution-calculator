@@ -2,3 +2,4 @@ transformers==4.45.2
 flask
 torch
 sympy
+gunicorn
