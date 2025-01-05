@@ -1,0 +1,3 @@
+pip uninstall transformers -y
+pip install transformers==4.45.2
+pip install flask
