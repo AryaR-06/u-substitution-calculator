@@ -3,32 +3,25 @@ from transformers import T5Tokenizer, T5ForConditionalGeneration
 import torch
 import re
 import sympy as sp
-import logging
 
 app = Flask(__name__)
 
 def generate_u_sub (expression):
-    try:
-        checkpoint = "AryaR-06/t5-u-sub"
-        tokenizer = T5Tokenizer.from_pretrained(checkpoint)
-        model = T5ForConditionalGeneration.from_pretrained(checkpoint)
-        logging.info("Model loaded successfully!")        
-        model.eval()
-    
-        input = tokenizer(expression, truncation=True, padding="max_length", max_length=512, return_tensors="pt")
-    
-        with torch.no_grad():
-            output = model.generate(input_ids=input["input_ids"],
-                                     attention_mask=input["attention_mask"],
-                                      max_length=512,
-                                      num_beams=4)
-    
-            prediction = tokenizer.decode(output[0], skip_special_tokens=True)
-            logging.info("Prediction Made")
-            return prediction
-    except Exception as e:
-        logging.error(f"Error in generate_u_sub: {e}")
-        raise          
+    checkpoint = "AryaR-06/t5-u-sub"
+    tokenizer = T5Tokenizer.from_pretrained(checkpoint)
+    model = T5ForConditionalGeneration.from_pretrained(checkpoint)     
+    model.eval()
+
+    input = tokenizer(expression, truncation=True, padding="max_length", max_length=512, return_tensors="pt")
+
+    with torch.no_grad():
+        output = model.generate(input_ids=input["input_ids"],
+                                 attention_mask=input["attention_mask"],
+                                  max_length=512,
+                                  num_beams=4)
+
+        prediction = tokenizer.decode(output[0], skip_special_tokens=True)
+        return prediction      
 
 def expr_tree_len(expr, max_depth=0, cur_depth=0):
     cur_depth += 1
