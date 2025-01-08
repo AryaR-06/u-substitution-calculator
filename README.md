@@ -27,7 +27,10 @@ Enter a mathematical expression (e.g., sin(5*x) or (2*x + 3)*(x^2 + 3*x + 2)^(-1
 Click "Solve" to submit the expression.
 View the generated substitution and step-by-step solution.
 ### Example Input and Output
-Input: ``sin(5*x)``
+Input: 
+```
+sin(5*x)
+```
 AI-Generated Output:
 ```
 (1) ∫(sin(5*x))*dx
